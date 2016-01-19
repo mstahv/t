@@ -1,4 +1,5 @@
 :sectnums:
+:imagesdir: images
 
 = Vaadin tutorial
 
@@ -42,7 +43,7 @@ project you create, so you only need to download them once.
 Right click on the created project and choose _Run as -> Maven Install_. This
 will initiate a full build of your application and finally create a war file to
 the "target" directory that you can deploy to your application server. As the
-project has a setup for add-on usage and contains a project specific 
+project has a setup for add-on usage and contains a project specific
 theme, the first build will take a while.
 
 To test your first Vaadin application, right click on the project and choose
@@ -62,7 +63,7 @@ application. Once the server has started, point your browser to the URL
 http://localhost:8080/[http://localhost:8080/] to see your app running.
 
 The UI code (and Servlet declaration) used by the application stub can be found in the
-MyUI.java file. You can read it through and see how it works. If you make changes to 
+MyUI.java file. You can read it through and see how it works. If you make changes to
 the code, the jetty server will notice the changes and in a couple of
 seconds most changes are automatically deployed. Reloading your browser will show
 the changes.
@@ -85,7 +86,7 @@ You can restart it easily form the run/debug history.
 Before getting more into real Vaadin development, let's introduce some domain
 objects and a "fake backend". In a real world application you'll most likely
 have something similar, implemented with for example JPA and EJB or Spring based
-service. 
+service.
 
 Copy the following three classes from the github. You can either download the java
 files and move them to your project or just copy the content from your browser and
@@ -127,7 +128,7 @@ If you are new to Java development, you probably got scared of the a red
 compilation error for the line where the Grid got introduced, due to a missing
 import. This is easily fixed in Eclipse by using the _Source -> Organize Imports_
 command. Learn its shortcut, you'll be using it a lot in Java development. In
-possible class name collisions while organizing your imports, always choose the 
+possible class name collisions while organizing your imports, always choose the
 appropriate class from the com.vaadin.ui package if you want to import core Vaadin UI classes like the Grid.
 
 To simply list all properties of all found Customer objects, replace the init
@@ -297,7 +298,7 @@ TODO discuss that .html files can be manually edited as well with the source,
 mode, provide copy-pasteable "final state" for next step without issues
 
 TODO discuss that it also creates a java class that is kept in sync with the design
-and you thus get static typing to your dynamic declarative/design file. 
+and you thus get static typing to your dynamic declarative/design file.
 
 TODO extend CustomerForm form CustomerFormDesign, mostly the same as the rest
 of <<Creating a form using plain Java>> chapter.
