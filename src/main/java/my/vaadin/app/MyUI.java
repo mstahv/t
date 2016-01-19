@@ -11,7 +11,6 @@ import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
-import com.vaadin.shared.ui.grid.ScrollDestination;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.Grid;
@@ -61,8 +60,6 @@ public class MyUI extends UI {
 			form.setCustomer(new Customer());
 		});
 
-		HorizontalLayout toolbar = new HorizontalLayout(filtering, addCustomerBtn);
-		toolbar.setSpacing(true);
 
 		grid.setColumns("firstName", "lastName", "email");
 		grid.addSelectionListener(event -> {
@@ -82,6 +79,9 @@ public class MyUI extends UI {
 		main.setExpandRatio(grid, 1);
 		grid.setSizeFull();
 		
+		HorizontalLayout toolbar = new HorizontalLayout(filtering, addCustomerBtn);
+		toolbar.setSpacing(true);
+
 		layout.addComponents(toolbar, main);
 		layout.setSizeFull();
 		layout.setExpandRatio(main, 1);

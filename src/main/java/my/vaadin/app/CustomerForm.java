@@ -30,11 +30,13 @@ public class CustomerForm extends CustomerFormDesign {
 	private void delete() {
 		service.delete(customer);
 		parent.updateList();
+		setVisible(false);
 	}
 
 	protected void save() {
 		service.save(customer);
 		parent.updateList();
+		setVisible(false);
 	}
 
 }
