@@ -3,6 +3,7 @@
 :imagesdir: images
 
 = Vaadin tutorial
+:toc: right
 
 This tutorial gives you an overview how you can use 
 https://vaadin.com/framework[Vaadin Framework] to build web UI's for your Java 
