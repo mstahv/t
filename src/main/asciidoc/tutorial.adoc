@@ -1,18 +1,20 @@
+:experimental:
 :sectnums:
 :imagesdir: images
 
 = Vaadin tutorial
 
-This is a tutorial that gives you an overview how you can use Vaadin Framework to
-build web UI's for your Java applications. All you need to start with is an IDE
-like Eclipse and Java JDK 8. Only basic programming skills are required.
-Although the tutorial is built for Eclipse users, you can
-use your IDE of choice and adapt the different parts to your IDE.
+This tutorial gives you an overview how you can use 
+https://vaadin.com/framework[Vaadin Framework] to build web UI's for your Java 
+applications. All you need to start with is an IDE like Eclipse and Java JDK 8. 
+Only basic programming skills are required. Although the tutorial is built for
+Eclipse users, you can use your IDE of choice and adapt the different parts to
+your IDE.
 
 We'll build a simple customer management system. It is not a real app, but we'll
 use an in-memory "backend" so that you can understand how to hook it to your backend. We'll cover
 basic Vaadin development and you can use the results you create as a basis for more
-experiments with add-ons, your own custom theme, optimizing the result for mobile
+experiments with add-ons, your own custom theme, optimising the result for mobile
 support, adding new views or anything at all.
 
 == Creating a project using an archetype
@@ -21,7 +23,7 @@ As a starting point for the application we'll use a Maven archetype called
 vaadin-archetype-application. Maven archetypes are projects stubs with basic
 build script and some example code.
 
-Start by choosing _File->New->Project_ to open the project creation wizard. In
+Start by choosing menu:File[New > Project] to open the project creation wizard. In
 the dialog you'll find a group _Maven_ and _Maven project_. The next page in the wizard is
 ok with its defaults, but on the third page you'll need to choose
 _vaadin-archetype-application_ archetype.
@@ -40,14 +42,14 @@ take a while, depending of the speed of your network, as Vaadin libraries and
 other dependencies are being downloaded. Maven caches these for your next Vaadin or any other
 project you create, so you only need to download them once.
 
-Right click on the created project and choose _Run as -> Maven Install_. This
+Right click on the created project and choose menu:Run as[Maven Install]. This
 will initiate a full build of your application and finally create a war file to
 the "target" directory that you can deploy to your application server. As the
 project has a setup for add-on usage and contains a project specific
 theme, the first build will take a while.
 
 To test your first Vaadin application, right click on the project and choose
-_Debug as -> Maven build..._. Debug mode is slightly slower, but it often helps
+menu:Debug as[Maven build...]. Debug mode is slightly slower, but it often helps
 you to figure out what is happening in your application. Type _jetty:run_ to the
 _Goals_ input and _Run in jetty_ to the _Name_ input.
 
@@ -126,7 +128,7 @@ public class MyUI extends UI {
 
 If you are new to Java development, you probably got scared of the a red
 compilation error for the line where the Grid got introduced, due to a missing
-import. This is easily fixed in Eclipse by using the _Source -> Organize Imports_
+import. This is easily fixed in Eclipse by using the menu:Source[Organize Imports]
 command. Learn its shortcut, you'll be using it a lot in Java development. In
 possible class name collisions while organizing your imports, always choose the
 appropriate class from the com.vaadin.ui package if you want to import core Vaadin UI classes like the Grid.
@@ -156,7 +158,7 @@ As we'll want to refresh the listing from various places in our application,
 extract the customer listing part into its own "updateList" method with the *public*
 modifier. The public modifier is handy later when we want to update the listing
 from other classes. You can let Eclipse help here by selecting the relevant
-lines and using the "quick fix" feature (CTRL-1 or CMD-1 on Macs).
+lines and using the "quick fix" feature (kbd:[Ctrl+1] or kbd:[Cmd+1] on Macs).
 
 If you try the application now, you'll see that quite many properties of the
 customers are shown in the listing. To limit the visible properties configure
@@ -309,7 +311,7 @@ This is an alternative step to the <<Creating a form using Vaadin Designer>>,
 where you'll build the form UI programmatically in plain Java.
 
 Start by creating a new Java class with the name CustomerForm. In Eclipse right
-click on the "my.vaadin.app" package and choose "New -> Class". Type in the name
+click on the "my.vaadin.app" package and choose menu:New[Class]. Type in the name
 "CustomerForm", define the super class as "com.vaadin.ui.FormLayout" and click
 finish.
 
@@ -398,7 +400,7 @@ save.setClickShortcut(KeyCode.ENTER);
 The last step to finish our form is to create an API for the MyUI to pass a
 Customer object that the form should edit and add some logic to actually save
 the changes. We'll start by creating a setter method for the Customer field. Just
-type "setCus" in the body of the class and hit autocomplete (CTRL-SPACE) and
+type "setCus" in the body of the class and hit autocomplete (kbd:[Ctrl+Space]) and
 Eclipse will create a method stub for you. Complete it with following declaration:
 
 [source,java]
