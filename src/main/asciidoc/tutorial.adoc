@@ -1,8 +1,8 @@
+
+= Vaadin tutorial
 :experimental:
 :sectnums:
 :imagesdir: images
-
-= Vaadin tutorial
 :toc: right
 
 This tutorial gives you an overview how you can use 
@@ -24,14 +24,12 @@ As a starting point for the application we'll use a Maven archetype called
 vaadin-archetype-application. Maven archetypes are projects stubs with basic
 build script and some example code.
 
-Start by choosing menu:File[New > Project] to open the project creation wizard. In
-the dialog you'll find a group _Maven_ and _Maven project_. 
+Start by choosing menu:File[New > Maven Project] from the menu. 
 
 image::createMavenProject.png[Create a new Maven built Vaadin project.]
 
-The next page in the wizard is
-ok with its defaults, but on the third page you'll need to choose
-_vaadin-archetype-application_ archetype. You can try to find it using the filtering function, but in some cases Eclipse
+The first page in the wizard is ok with its defaults, but on the second page you'll need to choose
+_vaadin-archetype-application_ archetype. You can first try to find it using the filtering function, but in some cases Eclipse
 hasn't yet indexed the archetype catalog, so you might need to manually add the
 archetype details with the _Add Archetype_ button. The Group Id is _com.vaadin_,
 the Artifact Id is _vaadin-archetype-application_ and as a version you can use
@@ -55,7 +53,7 @@ projects build and declares the used dependencies. Open _Java Resources_ and bel
 Java package that will contain your UI code.
 
 The UI code (and the Servlet declaration) used by the application stub can be found in the
-MyUI.java file. You can read it through and see how it works. The _init_ method of a 
+_MyUI.java_ file. You can read it through and see how it works. The _init_ method of a 
 UI class is triggered when a user enters your web application. The VerticalLayout is one 
 of the most used layout objects, which are used to position and display other Vaadin components
 in your UI classes. The example code creates one TextField to allow user to input his/her 
@@ -70,7 +68,7 @@ image::debugAsMavenBuild.png[Starting server using Maven target]
 
 In the dialog, type _Run in jetty_ to the _Name_ input and _jetty:run_ to the _Goals_ input.
 
-image::debugConfiguration.png
+image::debugConfiguration.png[Generating a Maven launch for jetty:run target]
 
 Before clicking debug, to make sure debugging works properly, add your Java project to the source lookup path from the _Source_ tab, like it is being done in the image below.
 
@@ -516,10 +514,7 @@ for simplicity.
 
 == Connecting the form to the application
 
-In this part we'll use the CustomerForm we just created in two use cases from the MyUI class: 
-
- 1. Editing an existing customer 
- 2. Creating a new one 
+In this part we'll use the CustomerForm we just created from the MyUI class. We will use it for both editing existing customers and creating new ones.
 
 By default we want it to be invisible, so let's first hide it by default by adding this line to the constructor of MyUI class:
 
