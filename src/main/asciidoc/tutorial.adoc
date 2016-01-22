@@ -35,6 +35,8 @@ archetype details with the _Add Archetype_ button. The Group Id is _com.vaadin_,
 the Artifact Id is _vaadin-archetype-application_ and as a version you can use
 the latest Vaadin version, at the time of writing _7.6.1_.
 
+TIP: Eclipse has nasty bug in its project wizard. If the _vaadin-archetype-application_ don't appear in the listing, even though you added it using the _Add Archetype_ button, close the whole new project wizard and select menu:File[New > Maven Project] again. The archetype then typically appears in the listing properly.
+
 On the next wizard page, type in _my.vaadin_ as the Group Id, _app_ as the Artifact Id and
 click _Finish_. If this is your first ever Vaadin app, creating a project might
 take a while, depending of the speed of your network, as Vaadin libraries and
