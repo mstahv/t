@@ -5,6 +5,9 @@
 :imagesdir: images
 :toc:
 
+
+image::finalUI.jpg[caption=" ", title="A screenshot of the application to be built.", alt="Screenshot", width="600"]
+
 This tutorial gives you an overview how you can use
 https://vaadin.com/framework[Vaadin Framework] to build web UI's for your Java
 applications. All you need to start with is a JDK 8 and an IDE like Eclipse.
