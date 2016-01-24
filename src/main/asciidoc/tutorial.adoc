@@ -5,20 +5,29 @@
 :imagesdir: images
 :toc:
 
-This tutorial gives you an overview how you can use 
-https://vaadin.com/framework[Vaadin Framework] to build web UI's for your Java 
-applications. All you need to start with is a JDK 8 and an IDE like Eclipse. 
+This tutorial gives you an overview how you can use
+https://vaadin.com/framework[Vaadin Framework] to build web UI's for your Java
+applications. All you need to start with is a JDK 8 and an IDE like Eclipse.
 Only basic programming skills are required. Although the tutorial is built for
 Eclipse users, you can use your IDE of choice and adapt the different parts to
 your IDE.
 
 We'll build a simple customer management system. It is not a real app, but we'll
-use an in-memory "backend" so that you can understand how could hook it to an existing Java based backend. We'll mostly cover basic Vaadin development and you can use the result as a basis for more
-experiments with Vaadin like using add-ons, your own custom theme, adding new views or optimising the result for mobile support.
+use an in-memory "backend" so that you can understand how could hook it to an
+existing Java based backend. We'll mostly cover basic Vaadin development and you
+can use the result as a basis for more experiments with Vaadin like using
+add-ons, your own custom theme, adding new views or optimising the result for
+mobile support.
 
-The tutorial uses Java 8, so ensure you have an up to date JDK 8 installed. Most linux distributions can use package managers to install JDK8, others should download it from http://www.oracle.com/technetwork/java/javase/downloads/index.html[Oracle's Java SE site].
+The tutorial uses Java 8, so ensure you have an up to date JDK 8 installed. Most
+linux distributions can use package managers to install JDK8, others should
+download it from
+http://www.oracle.com/technetwork/java/javase/downloads/index.html[Oracle's Java
+SE site].
 
-Also make sure you have the latest version of your IDE. Eclipse is available in various packages, be sure to download the *Eclipse IDE for Java EE Developers* from http://www.eclipse.org/downloads/[eclipse.org].
+Also make sure you have the latest version of your IDE. Eclipse is available in
+various packages, be sure to download the *Eclipse IDE for Java EE Developers*
+from http://www.eclipse.org/downloads/[eclipse.org].
 
 == Creating a project using an archetype
 
@@ -26,96 +35,125 @@ As a starting point for the application we'll use a Maven archetype called
 vaadin-archetype-application. Maven archetypes are projects stubs with basic
 build script and some example code.
 
-Start by choosing menu:File[New > Maven Project] from the menu. 
+Start by choosing menu:File[New > Maven Project] from the menu.
 
 image::createMavenProject.png[Create a new Maven built Vaadin project.]
 
-TIP: If the "Maven Project" is not visible in the menu, you should switch to _Java EE_ perspective. Use the shortcut button in the toolbar or menu:Window[Perspective] to do this.
+TIP: If the "Maven Project" is not visible in the menu, you should switch to
+_Java EE_ perspective. Use the shortcut button in the toolbar or
+menu:Window[Perspective] to do this.
 
-The first page in the wizard is ok with its defaults, but on the second page you'll need to choose
-_vaadin-archetype-application_ archetype. You can first try to find it using the filtering function, but in some cases Eclipse
-hasn't yet indexed the archetype catalog, so you might need to manually add the
+The first page in the wizard is ok with its defaults, but on the second page
+you'll need to choose _vaadin-archetype-application_ archetype. You can first
+try to find it using the filtering function, but in some cases Eclipse hasn't
+yet indexed the archetype catalog, so you might need to manually add the
 archetype details with the _Add Archetype_ button. The Group Id is _com.vaadin_,
 the Artifact Id is _vaadin-archetype-application_ and as a version you can use
 the latest Vaadin version, at the time of writing _7.6.1_.
 
-CAUTION: Eclipse has a nasty bug in its project wizard. If the _vaadin-archetype-application_ don't appear in the listing, even though you added it using the _Add Archetype_ button, close the whole new project wizard and re-open it by selecting menu:File[New > Maven Project] again. The archetype then typically appears in the listing properly and can be found by the filtering functionality.
+CAUTION: Eclipse has a nasty bug in its project wizard. If the
+_vaadin-archetype-application_ don't appear in the listing, even though you
+added it using the _Add Archetype_ button, close the whole new project wizard
+and re-open it by selecting menu:File[New > Maven Project] again. The archetype
+then typically appears in the listing properly and can be found by the filtering
+functionality.
 
-On the next wizard page, type in _my.vaadin_ as the Group Id, _app_ as the Artifact Id and
-click _Finish_. If this is your first ever Vaadin app, creating a project might
-take a while, depending of the speed of your network, as Vaadin libraries and
-other dependencies are being downloaded. Maven caches these on your local file system and creating your next Vaadin project will be much faster.
+On the next wizard page, type in _my.vaadin_ as the Group Id, _app_ as the
+Artifact Id and click _Finish_. If this is your first ever Vaadin app, creating
+a project might take a while, depending of the speed of your network, as Vaadin
+libraries and other dependencies are being downloaded. Maven caches these on
+your local file system and creating your next Vaadin project will be much
+faster.
 
-Right click on the newly created project and choose menu:Run as[Maven Install]. This
-will initiate a full build of your application and will finally create a war file to
-the "target" directory that you can deploy to your application server. As Maven might again need to download some new modules and the project has a setup for add-on usage and contains a project specific theme, the first build will take a while.
+Right click on the newly created project and choose menu:Run as[Maven Install].
+This will initiate a full build of your application and will finally create a
+war file to the "target" directory that you can deploy to your application
+server. As Maven might again need to download some new modules and the project
+has a setup for add-on usage and contains a project specific theme, the first
+build will take a while.
 
-While the build is running, let's have a look at what the archetype created for you. You can browse your project resources from the tree structure in the 
-_Project Explorer_. The _pom.xml_ on top level contains settings for your 
-projects build and declares the used dependencies. Open _Java Resources_ and below it _src/main/java_, the main source directory, and _my.vaadin.app_, the main 
-Java package that will contain your Vaadin UI code.
+While the build is running, let's have a look at what the archetype created for
+you. You can browse your project resources from the tree structure in the
+_Project Explorer_. The _pom.xml_ on top level contains settings for your
+projects build and declares the used dependencies. Open _Java Resources_ and
+below it _src/main/java_, the main source directory, and _my.vaadin.app_, the
+main Java package that will contain your Vaadin UI code.
 
-TIP: Eclipse shows all project files in the Project Explorer. In this case you can also find you _.java_ files via top level _src_ node, but the suggested method is to access them via _Java Resources_ node, which is optimised for editing Java source code.
+TIP: Eclipse shows all project files in the Project Explorer. In this case you
+can also find you _.java_ files via top level _src_ node, but the suggested
+method is to access them via _Java Resources_ node, which is optimised for
+editing Java source code.
 
-The UI code (and the Servlet declaration) used by the application stub can be found in the
-_MyUI.java_ file. Let's read it through to see how it works. The _init_ method of a 
-UI class is triggered when a user enters your web application. The VerticalLayout is one 
-of the most used layout objects, which are used to position and display other Vaadin components
-in your UI classes. The example code creates one TextField to allow user to input his/her 
-name and a Button whose click listener dynamically adds a new Label component to the main layout. In the end of the init method we just configure the main layout and place components into it and
-set it to be the content of the MyUI.
+The UI code (and the Servlet declaration) used by the application stub can be
+found in the _MyUI.java_ file. Let's read it through to see how it works. The
+_init_ method of a UI class is triggered when a user enters your web
+application. The VerticalLayout is one of the most used layout objects, which
+are used to position and display other Vaadin components in your UI classes. The
+example code creates one TextField to allow user to input his/her name and a
+Button whose click listener dynamically adds a new Label component to the main
+layout. In the end of the init method we just configure the main layout and
+place components into it and set it to be the content of the MyUI.
 
 To test your first Vaadin application, right click on the project and choose
-menu:Debug as[Maven build...]. Debug mode is slightly slower than basic run mode, but it often helps
-you to figure out what is happening in your application. 
+menu:Debug as[Maven build...]. Debug mode is slightly slower than basic run
+mode, but it often helps you to figure out what is happening in your
+application.
 
 image::debugAsMavenBuild.png[Starting server using Maven target]
 
-In the dialog, type _Run in jetty_ to the _Name_ input and _jetty:run_ to the _Goals_ input.
+In the dialog, type _Run in jetty_ to the _Name_ input and _jetty:run_ to the
+_Goals_ input.
 
 image::debugConfiguration.png[Generating a Maven launch for jetty:run target]
 
-Before clicking debug, to make sure debugging works properly, add your Java project to the source lookup path from the _Source_ tab, like it is being done in the image below.
+Before clicking debug, to make sure debugging works properly, add your Java
+project to the source lookup path from the _Source_ tab, like it is being done
+in the image below.
 
 image::debugAsMavenBuildAddSources.png[Adding sources for debugging]
 
-Now click _Debug_ to continue. This will download a small server to host your application (if not
-cached to your local Maven repository), and use it to host your application. Once the server has started, point your browser to the URL
+Now click _Debug_ to continue. This will download a small server to host your
+application (if not cached to your local Maven repository), and use it to host
+your application. Once the server has started, point your browser to the URL
 http://localhost:8080/[http://localhost:8080/] to see the running application.
 
-If you make changes to the code, the jetty server will notice the changes and in a couple of
-seconds most changes are automatically deployed. Reloading the page in browser will show
-the changes.
+If you make changes to the code, the jetty server will notice the changes and in
+a couple of seconds most changes are automatically deployed. Reloading the page
+in browser will show the changes.
 
-TIP: In some cases your JVM might not allow injecting changes on the fly. In these
-cases Eclipse will complain about "Hot code replacement error". Just choose to restart the
-server to get the latest changes. Many Java developers use a tool called http://zeroturnaround.com/software/jrebel/[JRebel] to 
-make code replacement work better.
+TIP: In some cases your JVM might not allow injecting changes on the fly. In
+these cases Eclipse will complain about "Hot code replacement error". Just
+choose to restart the server to get the latest changes. Many Java developers use
+a tool called http://zeroturnaround.com/software/jrebel/[JRebel] to make code
+replacement work better.
 
-Mastering the usage of debugger is also handy to better understand how your application actually
-works and fixing bugs that all developers write at some point. Double click on the line number in the Java editor, for example of the following line in the click listener:
+Mastering the usage of debugger is also handy to better understand how your
+application actually works and fixing bugs that all developers write at some
+point. Double click on the line number in the Java editor, for example of the
+following line in the click listener:
 
 [source,java]
 ----
-    layout.addComponent(new Label("Thanks " + name.getValue() 
+    layout.addComponent(new Label("Thanks " + name.getValue()
 ----
 
-This will add a breakpoint to the selected line. If you then click the button
-in your browser, the execution of the application will stop on the line.
-Eclipse will ask you to enter to _Debugging perspective_ and you can
-inspect its variables and step through the execution. Clicking on the _play_ icon in
-the toolbar will continue the execution. Double click the same line again to 
-remove the breakpoint.
+This will add a breakpoint to the selected line. If you then click the button in
+your browser, the execution of the application will stop on the line. Eclipse
+will ask you to enter to _Debugging perspective_ and you can inspect its
+variables and step through the execution. Clicking on the _play_ icon in the
+toolbar will continue the execution. Double click the same line again to remove
+the breakpoint.
 
 image::debugInBreakPointVariable.png[Execution in a break point in the button click listener]
 
 Clicking the red square in the Console view will terminate the server process.
-You can restart it easily form the run/debug history. You can find that from the 
-small down arrow next to the green play button or bug button (for the debug mode) 
-in the toolbar. Alternatively you can use the main menu: menu:Run[Run history/Debug history > Run in Jetty].
+You can restart it easily form the run/debug history. You can find that from the
+small down arrow next to the green play button or bug button (for the debug
+mode) in the toolbar. Alternatively you can use the main menu: menu:Run[Run
+history/Debug history > Run in Jetty].
 
-To get back to the _Java EE Perspective_, an Eclipse mode designed for editing Java
-web app code, click the _Java EE_ button on the toolbar.
+To get back to the _Java EE Perspective_, an Eclipse mode designed for editing
+Java web app code, click the _Java EE_ button on the toolbar.
 
 == Adding a demo "backend"
 
@@ -124,78 +162,87 @@ objects and a "fake backend". In a real world application you'll most likely
 have something similar, implemented with for example JPA and EJB or Spring based
 service.
 
-Copy the following three classes from the github to your project. Class names point to the classes
-hosted in Github. Copying classes can be done in many ways. 
+Copy the following three classes from the github to your project. Class names
+point to the classes hosted in Github. Copying classes can be done in many ways.
 
-TIP: The fastest way to copy classes using Eclipse is to use your good old clipboard. Select the text content of the whole class from your browser, choose menu:Edit[Copy], focus the node representing the _my.vaadin.app_ Java package in Eclipse's Java Resources view and choose menu:Edit[Paste]. Eclipse is smart enough to automatically create a properly named Java file for the class.
+TIP: The fastest way to copy classes using Eclipse is to use your good old
+clipboard. Select the text content of the whole class from your browser, choose
+menu:Edit[Copy], focus the node representing the _my.vaadin.app_ Java package in
+Eclipse's Java Resources view and choose menu:Edit[Paste]. Eclipse is smart
+enough to automatically create a properly named Java file for the class.
 
  * https://raw.githubusercontent.com/mstahv/t/master/src/main/java/my/vaadin/app/CustomerStatus.java[CustomerStatus] - this is a simple enum class
  * https://raw.githubusercontent.com/mstahv/t/master/src/main/java/my/vaadin/app/Customer.java[Customer] - this is the main domain object, a basic Java bean, that we'll be
    using in our example
  * https://raw.githubusercontent.com/mstahv/t/master/src/main/java/my/vaadin/app/CustomerService.java[CustomerService] - this is a simple facade via you can request and modify Customer instances. You can think of this as your entry point to your fake database.
 
-In the next steps we'll be using these classes and build a UI around them. The actual implementation of these classes is not relevant for this tutorial, but feel free to have a look around.
+In the next steps we'll be using these classes and build a UI around them. The
+actual implementation of these classes is not relevant for this tutorial, but
+feel free to have a look around.
 
 == Listing entities in a Grid
 
-Often when you start building a UI for a data centric application, the first thing
-you want to do is to list your data from your backend. There are several components and methods in Vaadin to do
-this. In this example we'll use the Grid component for tabular presentation of our
-customers.
+Often when you start building a UI for a data centric application, the first
+thing you want to do is to list your data from your backend. There are several
+components and methods in Vaadin to do this. In this example we'll use the Grid
+component for tabular presentation of our customers.
 
-We'll start by introducing a Grid field to the MyUI class. We could of course just
-introduce the Grid as a variable in the init method, but we'll most likely want
-to refer to it later. Also, let's get a reference to the CustomerService.
+We'll start by introducing a Grid field to the MyUI class. We could of course
+just introduce the Grid as a variable in the init method, but we'll most likely
+want to refer to it later. Also, let's get a reference to the CustomerService.
 
 [source,java]
 ----
 public class MyUI extends UI {
-    
+
     // Add next two lines:
     private CustomerService service = CustomerService.getInstance();
     private Grid grid = new Grid();
-    
+
     // the rest is already there...
     @Override
     protected void init(VaadinRequest vaadinRequest) {
 ----
 
-TIP: If you are new to Java development, you probably don't feel comfortable with the a red
-compilation error for the line where the Grid got introduced, due to a missing
-import. This is easily fixed in Eclipse by using the menu:Source[Organize Imports]
-command. Learn its shortcut (kbd:[Ctrl-Shift-O] or kbd:[CMD-Shift-O] on Macs), you'll be using it a lot in Java development. In
-possible class name collisions, always choose the
-appropriate class from the _com.vaadin.ui_ package if you want to import core Vaadin UI classes like the Grid.
+TIP: If you are new to Java development, you probably don't feel comfortable
+with the a red compilation error for the line where the Grid got introduced, due
+to a missing import. This is easily fixed in Eclipse by using the
+menu:Source[Organize Imports] command. Learn its shortcut (kbd:[Ctrl-Shift-O] or
+kbd:[CMD-Shift-O] on Macs), you'll be using it a lot in Java development. In
+possible class name collisions, always choose the appropriate class from the
+_com.vaadin.ui_ package if you want to import core Vaadin UI classes like the
+Grid.
 
-To simply list all properties of all Customer objects from the backend service, replace the init
-method with following snippet:
+To simply list all properties of all Customer objects from the backend service,
+replace the init method with following snippet:
 
 [source,java]
 ----
 @Override
 protected void init(VaadinRequest vaadinRequest) {
     final VerticalLayout layout = new VerticalLayout();
-    
+
     // add Grid to the layout
     layout.addComponents(grid);
-    
+
     // fetch list of Customers from service and assign it to Grid
     List<Customer> customers = service.findAll();
     grid.setContainerDataSource(new BeanItemContainer<>(Customer.class, customers));
-    
+
     layout.setMargin(true);
     setContent(layout);
 }
 ----
 
-TIP: Again, use the organize imports feature. The List object we use here is _java.util.List_.
+TIP: Again, use the organize imports feature. The List object we use here is
+_java.util.List_.
 
 As we'll want to refresh the listing from various places in our application,
-extract the customer listing part into its own "updateList" method with the *public*
-modifier. The public modifier is handy later when we want to update the listing
-from other classes. You can let Eclipse help here by selecting the relevant
-lines and using the "quick fix" feature (kbd:[Ctrl+1] or kbd:[Cmd+1] on Macs).
-The extracted method call looks like this:
+extract the customer listing part into its own "updateList" method with the
+*public* modifier. The public modifier is handy later when we want to update the
+listing from other classes. You can let Eclipse help here by selecting the
+relevant lines and using the "quick fix" feature (kbd:[Ctrl+1] or kbd:[Cmd+1] on
+Macs). The extracted method call looks like this:
 
 [source,java]
 ----
@@ -226,13 +273,13 @@ private Grid grid = new Grid();
 @Override
 protected void init(VaadinRequest vaadinRequest) {
     final VerticalLayout layout = new VerticalLayout();
-    
+
     grid.setColumns("firstName", "lastName", "email");
     // add Grid to the layout
     layout.addComponent(grid);
-    
+
     updateList();
-    
+
     layout.setMargin(true);
     setContent(layout);
 }
@@ -244,13 +291,14 @@ public void updateList() {
 }
 ----
 
-You can now save your changes the file and verify you changes from your browser. You can do this at any point you want during the rest of the tutorial as well.
+You can now save your changes the file and verify you changes from your browser.
+You can do this at any point you want during the rest of the tutorial as well.
 
 == Creating live filtering for entities
 
-A proper search functionality is expected in every modern application and it is also a nice
-Vaadin development exercise. Let's add a filtering functionality to the Customer listing we
-created in the previous step.
+A proper search functionality is expected in every modern application and it is
+also a nice Vaadin development exercise. Let's add a filtering functionality to
+the Customer listing we created in the previous step.
 
 We'll start by introducing a TextField component as a field to our UI class:
 
@@ -260,7 +308,9 @@ We'll start by introducing a TextField component as a field to our UI class:
 ----
 
 In the _init_ method, configure the text field to contain a helpful input prompt
-and add a text change listener to the field. The exact place of these lines is not important, but add them for example after you have introduced the _layout_ object.
+and add a text change listener to the field. The exact place of these lines is
+not important, but add them for example after you have introduced the _layout_
+object.
 
 [source,java]
 ----
@@ -271,26 +321,31 @@ filterText.addTextChangeListener(e -> {
 });
 ----
 
-TIP: To keep your code more readable, you can use autoformat after you write or copy paste code snippets. The default keyboard shortcut in Eclipse is kbd:[Ctrl+Shift+F] or kbd:[Cmd+Shift+F]
+TIP: To keep your code more readable, you can use autoformat after you write or
+copy paste code snippets. The default keyboard shortcut in Eclipse is
+kbd:[Ctrl+Shift+F] or kbd:[Cmd+Shift+F]
 
-The text change listener is another listener (in addition to more the commonly used
-ValueChangeListener) you can use it with text fields in Vaadin. It is fired lazily
-while the user is typing, but only when there is a small pause in the typing. This
-makes it perfect for this kind of automatic filtering. When the user has changed the
-text, we'll just update the listing like in the updateList method, but use the
-current text as a filter for entries.
+The text change listener is another listener (in addition to more the commonly
+used ValueChangeListener) you can use it with text fields in Vaadin. It is fired
+lazily while the user is typing, but only when there is a small pause in the
+typing. This makes it perfect for this kind of automatic filtering. When the
+user has changed the text, we'll just update the listing like in the updateList
+method, but use the current text as a filter for entries.
 
-To keep the _updateList_ method functional, it should also take into consideration a possible value in the filterText field. Change the line for fetching the customers into this:
+To keep the _updateList_ method functional, it should also take into
+consideration a possible value in the filterText field. Change the line for
+fetching the customers into this:
 
 [source,java]
 ----
   List<Customer> customers = service.findAll(filterText.getValue());
 ----
 
-Before adding the plain text field to the UI, let's improve the
-usability a bit and make a short exercise to compose better components from low
-level Vaadin components. The search field can naturally be cleared with keyboard, but lets add a clear button next to the text field. Start by adding the
-following lines to the init method, for example right after your filterText configuration:
+Before adding the plain text field to the UI, let's improve the usability a bit
+and make a short exercise to compose better components from low level Vaadin
+components. The search field can naturally be cleared with keyboard, but lets
+add a clear button next to the text field. Start by adding the following lines
+to the init method, for example right after your filterText configuration:
 
 [source,java]
 ----
@@ -302,21 +357,21 @@ clearFilterTextBtn.addClickListener(e -> {
 });
 ----
 
-Vaadin contains a set of built in icons, from which we here use the "X" icon, _FontAwesome.TIMES_,
-which most users will recognise as a functionality to clear the value. If we set the
-description to a component, it will be shown as a tooltip for those users who
-hover the mouse over the button and wonder what to do with it. In the click
-listener we simply clear the text from the field and refresh the content of the
-listing.
+Vaadin contains a set of built in icons, from which we here use the "X" icon,
+_FontAwesome.TIMES_, which most users will recognise as a functionality to clear
+the value. If we set the description to a component, it will be shown as a
+tooltip for those users who hover the mouse over the button and wonder what to
+do with it. In the click listener we simply clear the text from the field and
+refresh the content of the listing.
 
-Vaadin contains lots of different kinds of layouts. The simplest way to align the
-text field and the button next to each other would be to use a HorizontalLayout. 
-An alternative way we use here is using a CssLayout, which is a lightweight layout 
-that is easy to customize with css. Even if you wouldn't want to play with CSS 
-yourself, you can many times use one of the existing style rules in the default Valo 
-theme. The following snippet will create a nice compact "composition" of both the
-TextField and the clear button. Add these lines to the init method right after 
-you configured the _clearFilterTextBtn_:
+Vaadin contains lots of different kinds of layouts. The simplest way to align
+the text field and the button next to each other would be to use a
+HorizontalLayout. An alternative way we use here is using a CssLayout, which is
+a lightweight layout that is easy to customize with css. Even if you wouldn't
+want to play with CSS yourself, you can many times use one of the existing style
+rules in the default _Valo_ theme. The following snippet will create a nice
+compact "composition" of both the TextField and the clear button. Add these
+lines to the init method right after you configured the _clearFilterTextBtn_:
 
 [source,java]
 ----
@@ -325,7 +380,9 @@ filtering.addComponents(filterText, clearFilterTextBtn);
 filtering.setStyleName(ValoTheme.LAYOUT_COMPONENT_GROUP);
 ----
 
-Finally, *change* the row in the init method, that currently adds only the grid, to add both _filtering_ composition and the _grid_ to the main _layout_ of the application.
+Finally, *change* the row in the init method, that currently adds only the grid,
+to add both _filtering_ composition and the _grid_ to the main _layout_ of the
+application.
 
 [source,java]
 ----
@@ -336,16 +393,18 @@ It is now a good place to save your changes and try them via browser.
 
 == Creating a form using Vaadin Designer
 
-CAUTION: This part is not ready, take the alternative <<Creating a form using plain Java>>, where you create the
-form in plain Java code
+CAUTION: This part is not ready, take the alternative <<Creating a form using
+plain Java>>, where you create the form in plain Java code
 
-The form to edit Customer objects can be build using several methods of which visual
-composition by drag 'n' drop is by far the most intuitive. Vaadin Designer is an Eclipse plugin that
-you can install and do WYSIWYG editing of your view code. We'll use it
-to create the form and then hook the editing logic to it with Java. 
+The form to edit Customer objects can be build using several methods of which
+visual composition by drag 'n' drop is by far the most intuitive. Vaadin
+Designer is an Eclipse plugin that you can install and do WYSIWYG editing of
+your view code. We'll use it to create the form and then hook the editing logic
+to it with Java.
 
-TIP: If you are using another IDE or would just would like to code your UI's, take the alternative
-step, <<Creating a form using plain Java>>, where the UI is composed in plain Java code.
+TIP: If you are using another IDE or would just would like to code your UI's,
+take the alternative step, <<Creating a form using plain Java>>, where the UI is
+composed in plain Java code.
 
 TODO installation instruction
 
@@ -375,15 +434,15 @@ This is an alternative step to the <<Creating a form using Vaadin Designer>>,
 where you'll build the form UI programmatically in plain Java.
 
 Start by creating a new Java class with the name CustomerForm. In Eclipse right
-click on the "my.vaadin.app" package and choose menu:New[Class]. Type in the name
-_CustomerForm_, define the super class as _com.vaadin.ui.FormLayout_ and click
-_finish_.
+click on the "my.vaadin.app" package and choose menu:New[Class]. Type in the
+name _CustomerForm_, define the super class as _com.vaadin.ui.FormLayout_ and
+click _finish_.
 
 In the form we'll need editor fields for each property in our Customer domain
-class. There are different kinds of fields in Vaadin for editing different kinds of
-properties. In this example we'll use a TextField, a PopupDateField and
-a NativeSelect. Add the following field declarations and action buttons as Java fields
-to the CustomerForm:
+class. There are different kinds of fields in Vaadin for editing different kinds
+of properties. In this example we'll use a TextField, a PopupDateField and a
+NativeSelect. Add the following field declarations and action buttons as Java
+fields to the CustomerForm:
 
 [source,java]
 ----
@@ -408,7 +467,7 @@ private MyUI myUI;
 
 public CustomerForm(MyUI myUI) {
     this.myUI = myUI;
-    
+
     setSizeUndefined();
     HorizontalLayout buttons = new HorizontalLayout(save, delete);
     buttons.setSpacing(true);
@@ -416,10 +475,12 @@ public CustomerForm(MyUI myUI) {
 }
 ----
 
-In the constructor we make the form size undefined, which practically means
-it will consume the minimum space defined by its content. Then we'll just add all fields to the CustomerForm and add action buttons to the bottom - side-by-side using
-a HorizontalLayout. Although the form is not yet fully functional, you might want
-to see how it looks like at this point. Add it as a field to the MyUI class:
+In the constructor we make the form size undefined, which practically means it
+will consume the minimum space defined by its content. Then we'll just add all
+fields to the CustomerForm and add action buttons to the bottom - side-by-side
+using a HorizontalLayout. Although the form is not yet fully functional, you
+might want to see how it looks like at this point. Add it as a field to the MyUI
+class:
 
 [source,java]
 ----
@@ -428,7 +489,8 @@ to see how it looks like at this point. Add it as a field to the MyUI class:
 
 Now let's modify the init method in MyUI to show the form. Let's wrap both the
 Grid and the CustomerForm in a horizontal layout and configure the Grid to use
-all of the available space more efficiently. Replace the line *layout.addComponents(filtering, grid);* with the following:
+all of the available space more efficiently. Replace the line
+*layout.addComponents(filtering, grid);* with the following:
 
 [source,java]
 ----
@@ -441,11 +503,13 @@ main.setExpandRatio(grid, 1);
 layout.addComponents(filtering, main);
 ----
 
-If you now save your changes and and reload your application page in browser, you should see your work in progress CustomerForm next to the grid listing your existing entities.
+If you now save your changes and and reload your application page in browser,
+you should see your work in progress CustomerForm next to the grid listing your
+existing entities.
 
-Let's get back to the CustomerForm. The first thing we'll need is
-to populate the options for the select. To add all enum values as valid
-selections, add the following line to the constructor:
+Let's get back to the CustomerForm. The first thing we'll need is to populate
+the options for the select. To add all enum values as valid selections, add the
+following line to the constructor:
 
 [source,java]
 ----
@@ -463,19 +527,19 @@ save.setStyleName(ValoTheme.BUTTON_PRIMARY);
 save.setClickShortcut(KeyCode.ENTER);
 ----
 
-To finish our form we need to create a public API, that we will use in
-the next part from the MyUI, to pass in a Customer object that the form should 
-edit. We will also add some logic to actually save the changes. We'll start by creating 
-a setter method for the Customer field. Just
-type _setCus_ in the body of the class and hit autocomplete (kbd:[Ctrl+Space]) and
-Eclipse will create a method stub for you. Complete it with following implementation:
+To finish our form we need to create a public API, that we will use in the next
+part from the MyUI, to pass in a Customer object that the form should edit. We
+will also add some logic to actually save the changes. We'll start by creating a
+setter method for the Customer field. Just type _setCus_ in the body of the
+class and hit autocomplete (kbd:[Ctrl+Space]) and Eclipse will create a method
+stub for you. Complete it with following implementation:
 
 [source,java]
 ----
 public void setCustomer(Customer customer) {
     this.customer = customer;
     BeanFieldGroup.bindFieldsUnbuffered(customer, this);
-    
+
     // Show delete button for only customers already in the database
     delete.setVisible(customer.isPersisted());
     setVisible(true);
@@ -483,13 +547,22 @@ public void setCustomer(Customer customer) {
 }
 ----
 
-In addition to saving the reference of currently edited Customer object, we are calling _BeanFieldGroup.bindFieldsUnbuffered_ method. It will initialise all similarly named editor fields in this form with the values from their counterpart in the given Customer object. Also it will automatically update the values in the domain objects as the corresponding field value changes in the user interface.
+In addition to saving the reference of currently edited Customer object, we are
+calling _BeanFieldGroup.bindFieldsUnbuffered_ method. It will initialise all
+similarly named editor fields in this form with the values from their
+counterpart in the given Customer object. Also it will automatically update the
+values in the domain objects as the corresponding field value changes in the
+user interface.
 
-TIP: If the naming convention based databinding doesn't fit for your needs, you can use
+TIP: If the naming convention based databinding doesn't fit for your needs, you
+can use
 https://www.vaadin.com/api/com/vaadin/data/fieldgroup/PropertyId.html[PropertyId]
 annotation on fields to explicitly declare the edited property.
 
-We'll also want to ensure the form is visible and that the focus goes to the firstName field to improve the user experience. As we will be using the form to edit both new non-persisted objects and existing customers, we will also show the delete button only for customers that are already persisted in the backend.
+We'll also want to ensure the form is visible and that the focus goes to the
+firstName field to improve the user experience. As we will be using the form to
+edit both new non-persisted objects and existing customers, we will also show
+the delete button only for customers that are already persisted in the backend.
 
 The last thing we need to do is to handle save and delete button clicks. Add
 the following methods to the CustomerForm class:
@@ -518,24 +591,29 @@ save.addClickListener(e->this.save());
 delete.addClickListener(e->this.delete());
 ----
 
-TIP: For a truly re-usable form component in a real life project, you'd
-want to introduce an interface to replace the myUI field or, event better, use an event
+TIP: For a truly re-usable form component in a real life project, you'd want to
+introduce an interface to replace the myUI field or, event better, use an event
 system like https://vaadin.com/wiki/-/wiki/main/Events+and+contexts[CDI events]
-to completely decouple the components. We'll leave that out of this tutorial
-for simplicity.
+to completely decouple the components. We'll leave that out of this tutorial for
+simplicity.
 
 == Connecting the form to the application
 
-In this part we'll use the CustomerForm class, which we just created in the previous step, from the MyUI class. We will use it for both editing existing customers and creating new ones.
+In this part we'll use the CustomerForm class, which we just created in the
+previous step, from the MyUI class. We will use it for both editing existing
+customers and creating new ones.
 
-In the previous part we already added the form to the _MyUI_ to see how it looks like. By default we want it to be invisible, so let's first hide it by default by adding this line to the _init_ method of MyUI class:
+In the previous part we already added the form to the _MyUI_ to see how it looks
+like. By default we want it to be invisible, so let's first hide it by default
+by adding this line to the _init_ method of MyUI class:
 
 [source,java]
 ----
 form.setVisible(false);
 ----
 
-To edit the customer chosen from the Grid add following selection listener to the end of the _init_ method:
+To edit the customer chosen from the Grid add following selection listener to
+the end of the _init_ method:
 
 [source,java]
 ----
@@ -550,11 +628,15 @@ grid.addSelectionListener(event -> {
 ----
 
 In the listener we simply take the Customer object of the selected row and it to
-the CustomerForm for editing. In previous step we added a side effect to _setCustomer_ method that will bind the domain object to corresponding fields and make it visible. If the selection is empty, we'll hide the form.
+the CustomerForm for editing. In previous step we added a side effect to
+_setCustomer_ method that will bind the domain object to corresponding fields
+and make it visible. If the selection is empty, we'll hide the form.
 
-To allow users also to create new customer records, we'll create a simple "Add customer
-button" to the top of the UI, right next to the _filtering_ composition we have already built from CssLayout, TextField and a Button. 
-Introduce the new Button with a click listener, by adding following lines to the _init_ method, right after where you introduced the _filtering_ composition:
+To allow users also to create new customer records, we'll create a simple "Add
+customer button" to the top of the UI, right next to the _filtering_ composition
+we have already built from CssLayout, TextField and a Button. Introduce the new
+Button with a click listener, by adding following lines to the _init_ method,
+right after where you introduced the _filtering_ composition:
 
 [source,java]
 ----
@@ -565,11 +647,12 @@ addCustomerBtn.addClickListener(e -> {
 });
 ----
 
-In the click listener we first clear a possible selection from the grid and then instantiate a
-new Customer object and pass that to the form for editing.
+In the click listener we first clear a possible selection from the grid and then
+instantiate a new Customer object and pass that to the form for editing.
 
-To add it beside our _filtering_ composition, we can use a HorizontalLayout to create a toolbar
-where we place both components. First, introduce a toolbar like this after the previously created _addCustomerBtn_:
+To add it beside our _filtering_ composition, we can use a HorizontalLayout to
+create a toolbar where we place both components. First, introduce a toolbar like
+this after the previously created _addCustomerBtn_:
 
 [source,java]
 ----
@@ -577,8 +660,9 @@ HorizontalLayout toolbar = new HorizontalLayout(filtering, addCustomerBtn);
 toolbar.setSpacing(true);
 ----
 
-And, again, *replace* the line that populates your main layout to add the toolbar
-instead of just the filtering composition, which we just moved to the _toolbar_ layout.
+And, again, *replace* the line that populates your main layout to add the
+toolbar instead of just the filtering composition, which we just moved to the
+_toolbar_ layout.
 
 [source,java]
 ----
@@ -589,7 +673,8 @@ The final UI looks something like this:
 
 image::finalUI.png[The final app editing a Customer entity]
 
-You can also download https://github.com/mstahv/t[the final state of the example app] from Github.
+You can also download https://github.com/mstahv/t[the final state of the example
+app] from Github.
 
 == It works! What next?
 
@@ -599,8 +684,12 @@ with Vaadin.
 
 If you are an experienced Java developer, you are probably already full of ideas
 how you can use your existing skills and create new shiny web UIs for your
-existing Java apps. If you want more ideas how to create full stack applications, you might for example go through
-http://spring.io/guides/gs/crud-with-vaadin/[Creating CRUD UI with Vaadin] guide and create a bit similar UI with a real database backend implemented with Spring Data JPA. We have also collected couple of other excellent resources for a good start on your Vaadin developer career.
+existing Java apps. If you want more ideas how to create full stack
+applications, you might for example go through
+http://spring.io/guides/gs/crud-with-vaadin/[Creating CRUD UI with Vaadin] guide
+and create a bit similar UI with a real database backend implemented with Spring
+Data JPA. We have also collected couple of other excellent resources for a good
+start on your Vaadin developer career.
 
  * https://vaadin.com/docs/-/part/framework/introduction/intro-overview.html[Vaadin online documentation]
  * http://spring.io/guides/gs/crud-with-vaadin/[Creating CRUD UI with Vaadin] - the tutorial for your first Vaadin application using Spring based backend.
