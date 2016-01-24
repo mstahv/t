@@ -37,7 +37,7 @@ build script and some example code.
 
 Start by choosing menu:File[New > Maven Project] from the menu.
 
-image::createMavenProject.png[Create a new Maven built Vaadin project.]
+image::createMavenProject.jpg[Create a new Maven built Vaadin project.]
 
 TIP: If the "Maven Project" is not visible in the menu, you should switch to
 _Java EE_ perspective. Use the shortcut button in the toolbar or
@@ -100,18 +100,18 @@ menu:Debug as[Maven build...]. Debug mode is slightly slower than basic run
 mode, but it often helps you to figure out what is happening in your
 application.
 
-image::debugAsMavenBuild.png[Starting server using Maven target]
+image::debugAsMavenBuild.jpg[Starting server using Maven target]
 
 In the dialog, type _Run in jetty_ to the _Name_ input and _jetty:run_ to the
 _Goals_ input.
 
-image::debugConfiguration.png[Generating a Maven launch for jetty:run target]
+image::debugConfiguration.jpg[Generating a Maven launch for jetty:run target]
 
 Before clicking debug, to make sure debugging works properly, add your Java
 project to the source lookup path from the _Source_ tab, like it is being done
 in the image below.
 
-image::debugAsMavenBuildAddSources.png[Adding sources for debugging]
+image::debugAsMavenBuildAddSources.jpg[Adding sources for debugging]
 
 Now click _Debug_ to continue. This will download a small server to host your
 application (if not cached to your local Maven repository), and use it to host
@@ -145,7 +145,7 @@ variables and step through the execution. Clicking on the _play_ icon in the
 toolbar will continue the execution. Double click the same line again to remove
 the breakpoint.
 
-image::debugInBreakPointVariable.png[Execution in a break point in the button click listener]
+image::debugInBreakPointVariable.jpg[Execution in a break point in the button click listener]
 
 Clicking the red square in the Console view will terminate the server process.
 You can restart it easily form the run/debug history. You can find that from the
@@ -409,13 +409,13 @@ composed in plain Java code.
 
 TODO installation instruction
 
-image::pluginEclipseMarketPlace.png[Open Eclipse marketplace]
+image::pluginEclipseMarketPlace.jpg[Open Eclipse marketplace]
 
-image::pluginEclipseMarketPlace2.png[Eclipse marketplace search]
+image::pluginEclipseMarketPlace2.jpg[Eclipse marketplace search]
 
-image::pluginConfirmInstall.png[Confirm installation]
+image::pluginConfirmInstall.jpg[Confirm installation]
 
-image::pluginCreateDesign.png[Create design]
+image::pluginCreateDesign.jpg[Create design]
 
 TODO VIDEO how to create the CustomerFormDesign.html, otherwise it will
 become too long, boring and error prone for users to repeat it
