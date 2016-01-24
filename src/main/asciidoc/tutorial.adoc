@@ -105,7 +105,7 @@ image::debugAsMavenBuild.jpg[Starting server using Maven target]
 In the dialog, type _Run in jetty_ to the _Name_ input and _jetty:run_ to the
 _Goals_ input.
 
-image::debugConfiguration.jpg[Generating a Maven launch for jetty:run target]
+image::debugAsMavenBuild2.jpg[Generating a Maven launch for jetty:run target]
 
 Before clicking debug, to make sure debugging works properly, add your Java
 project to the source lookup path from the _Source_ tab, like it is being done
