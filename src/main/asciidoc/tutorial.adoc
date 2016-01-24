@@ -49,7 +49,8 @@ try to find it using the filtering function, but in some cases Eclipse hasn't
 yet indexed the archetype catalog, so you might need to manually add the
 archetype details with the _Add Archetype_ button. The Group Id is _com.vaadin_,
 the Artifact Id is _vaadin-archetype-application_ and as a version you can use
-the latest Vaadin version, at the time of writing _7.6.1_.
+the latest Vaadin version, at the time of writing _7.6.1_. The _Repository URL_
+can be left blank.
 
 CAUTION: Eclipse has a nasty bug in its project wizard. If the
 _vaadin-archetype-application_ don't appear in the listing, even though you
@@ -669,12 +670,9 @@ _toolbar_ layout.
 layout.addComponents(toolbar, main);
 ----
 
-The final UI looks something like this:
-
-image::finalUI.png[The final app editing a Customer entity]
-
-You can also download https://github.com/mstahv/t[the final state of the example
-app] from Github.
+All planned features are now done. You can save the changes and play around with
+the application. If something went wrong, can also download an example of
+https://github.com/mstahv/t[the final application] and see what went wrong.
 
 == It works! What next?
 
