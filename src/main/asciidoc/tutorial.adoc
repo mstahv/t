@@ -116,8 +116,8 @@ in the image below.
 
 image::debugAsMavenBuildAddSources.jpg[Adding sources for debugging]
 
-Now click _Debug_ to continue. This will download a small server to host your
-application (if not cached to your local Maven repository), and use it to host
+Now click _Debug_ to continue. This will download a small Java web server 
+(if not cached to your local Maven repository), and use it to host
 your application. Once the server has started, point your browser to the URL
 http://localhost:8080/[http://localhost:8080/] to see the running application.
 
@@ -397,40 +397,196 @@ It is now a good place to save your changes and try them via browser.
 
 == Creating a form using Vaadin Designer
 
-CAUTION: This part is not ready, take the alternative <<Creating a form using
-plain Java>>, where you create the form in plain Java code
-
 The form to edit Customer objects can be build using several methods of which
-visual composition by drag 'n' drop is by far the most intuitive. Vaadin
+visual composition by drag 'n' drop is the most intuitive. Vaadin
 Designer is an Eclipse plugin that you can install and do WYSIWYG editing of
 your view code. We'll use it to create the form and then hook the editing logic
 to it with Java.
 
-TIP: If you are using another IDE or would just would like to code your UI's,
-take the alternative step, <<Creating a form using plain Java>>, where the UI is
-composed in plain Java code.
+TIP: If you are using another IDE or just prefer to compose your user interface
+with code, take the alternative step, <<Creating a form using plain Java>>,
+where the CustomerForm is composed using plain Java code.
 
-TODO installation instruction
+=== Installing Vaadin Designer
 
-image::pluginEclipseMarketPlace.jpg[Open Eclipse marketplace]
+Vaadin Designer comes as an integrated part of Vaadin Plugin for Eclipse. It can
+be installed easily via Eclipse Marketplace. Choose menu:Help[Eclipse Marketplace]
 
-image::pluginEclipseMarketPlace2.jpg[Eclipse marketplace search]
+In the dialog, just search for Vaadin and click _install_ to mark it for 
+installation. Clicking _Install Now_ will take you to choose the modules you want
+and accept the license agreement.
 
-image::pluginConfirmInstall.jpg[Confirm installation]
+image::pluginEclipseMarketPlace2.jpg[Selecting Vaadin Plugin for Eclipse for 
+installation in Eclipse Marketplace]
 
-image::pluginCreateDesign.jpg[Create design]
+TIP: When you actually use the Vaadin Designer for the first time in the next step,
+it will ask for a license key. If you are not willing to buy license now, just
+acquire a trial license.
 
-TODO VIDEO how to create the CustomerFormDesign.html, otherwise it will
-become too long, boring and error prone for users to repeat it
+=== Creating the form design
 
-TODO discuss that .html files can be manually edited as well with the source,
-mode, provide copy-pasteable "final state" for next step without issues
+The following screencast will show you how to produce the 
+_CustomerFormDesign.html_, a design file we need in this tutorial. Use pause and
+slow motion to better follow what is being done on the video. 
 
-TODO discuss that it also creates a java class that is kept in sync with the design
-and you thus get static typing to your dynamic declarative/design file.
+video::doKj0JwXWrI[youtube, width="640", height="400"]
 
-TODO extend CustomerForm form CustomerFormDesign, mostly the same as the rest
-of <<Creating a form using plain Java>> chapter.
+TIP: At any point of the process you can also switch to the markup mode where
+you can edit the raw content of the .html file. If you wish to take a shortcut
+or think you did something wrong when using the designer, you can just 
+copy-paste the content of the final state to your own .html file.
+
+At this point we only have a static mockup of the actual UI. To implement a
+functional form component, we need some Java code as well. Vaadin Designer
+automatically creates a similarly named Java class, but a good habit with
+Vaadin Designer is to never touch the auto-generated file, in this case the
+CustomerFormDesign.java file. If you'd introduce a new field to your form, 
+your changes to CustomerFormDesign would be overridden by the tooling. Instead
+we'll create a class called CustomerForm which inherits from the auto-generated
+CustomerFormDesign class.
+
+Start by creating a new Java class with the name CustomerForm. In Eclipse right
+click on the "my.vaadin.app" package and choose menu:New[Class]. Type in the
+name _CustomerForm_, define the super class as 
+_my.vaadin.app.CustomerFormDesign_ and click _finish_.
+
+From the superclass we inherit all the UI elements that we named when using
+the designer. E.g. by simply referencing to "save" field in the CustomerForm,
+we'll have access to the save button we previously created.
+
+We will later need a reference to the currently edited Customer object,
+CustomerService and the MyUI that uses this class. Add these fields and a
+basic constructor that accepts MyUI as a parameter to the CustomerForm class:
+
+[source,java]
+----
+CustomerService service = CustomerService.getInstance();
+private Customer customer;
+private MyUI parent;
+
+public CustomerForm(MyUI myUI) {
+    this.parent = myUI;
+}
+----
+
+Although the form is not yet fully functional, you might want to see how it 
+looks like at this point. Add it as a field to the _MyUI_ class:
+
+[source,java]
+----
+    CustomerForm form = new CustomerForm(this);
+----
+
+Now let's modify the init method in MyUI to show the form. Let's wrap both the
+Grid and the CustomerForm in a horizontal layout and configure the Grid to use
+all of the available space more efficiently. Replace the line
+*layout.addComponents(filtering, grid);* with the following:
+
+[source,java]
+----
+HorizontalLayout main = new HorizontalLayout(grid, form);
+main.setSpacing(true);
+main.setSizeFull();
+grid.setSizeFull();
+main.setExpandRatio(grid, 1);
+
+layout.addComponents(filtering, main);
+----
+
+If you now save your changes and and reload your application page in browser,
+you should see your work in progress CustomerForm next to the grid listing your
+existing entities.
+
+Let's get back to the CustomerForm. The first thing we'll need is to populate
+the options for the select. To add all enum values as valid selections, add the
+following line to the constructor:
+
+[source,java]
+----
+    status.removeAllItems(); // Remove demo data assigned by Designer
+    status.addItems(CustomerStatus.values());
+----
+
+Let's also improve the UX a bit. When building the design, we already 
+emphasised the save button with a ValoTheme.BUTTON_PRIMARY style name. Thus, it
+would be natural if a hit to enter key would do the same action as clicking the
+save button. Give the save button a keyboard shortcut with this line to the
+constructor:
+
+[source,java]
+----
+save.setClickShortcut(KeyCode.ENTER);
+----
+
+To finish our form we need to create a public API, that we will use in the next
+part from the MyUI, to pass in a Customer object that the form should edit. We
+will also add some logic to actually save the changes. We'll start by creating a
+setter method for the Customer field. Just type _setCus_ in the body of the
+class and hit autocomplete (kbd:[Ctrl+Space]) and Eclipse will create a method
+stub for you. Complete it with following implementation:
+
+[source,java]
+----
+public void setCustomer(Customer customer) {
+    this.customer = customer;
+    BeanFieldGroup.bindFieldsUnbuffered(customer, this);
+
+    // Show delete button for only customers already in the database
+    delete.setVisible(customer.isPersisted());
+    setVisible(true);
+    firstName.selectAll();
+}
+----
+
+In addition to saving the reference of currently edited Customer object, we are
+calling _BeanFieldGroup.bindFieldsUnbuffered_ method. It will initialise all
+similarly named editor fields in this form with the values from their
+counterpart in the given Customer object. Also it will automatically update the
+values in the domain objects as the corresponding field value changes in the
+user interface.
+
+TIP: If the naming convention based databinding doesn't fit for your needs, you
+can use
+https://www.vaadin.com/api/com/vaadin/data/fieldgroup/PropertyId.html[PropertyId]
+annotation on fields to explicitly declare the edited property.
+
+We'll also want to ensure the form is visible and that the focus goes to the
+firstName field to improve the user experience. As we will be using the form to
+edit both new non-persisted objects and existing customers, we will also show
+the delete button only for customers that are already persisted in the backend.
+
+The last thing we need to do is to handle save and delete button clicks. Add
+the following methods to the CustomerForm class:
+
+[source,java]
+----
+private void delete() {
+    service.delete(customer);
+    myUI.updateList();
+    setVisible(false);
+}
+
+private void save() {
+    service.save(customer);
+    myUI.updateList();
+    setVisible(false);
+}
+----
+
+Finally we'll add listeners to the buttons to call these methods. Adding these
+simple lambda expression to the constructor will take care of that:
+
+[source,java]
+----
+save.addClickListener(e->this.save());
+delete.addClickListener(e->this.delete());
+----
+
+TIP: For a truly re-usable form component in a real life project, you'd want to
+introduce an interface to replace the myUI field or, event better, use an event
+system like https://vaadin.com/wiki/-/wiki/main/Events+and+contexts[CDI events]
+to completely decouple the components. We'll leave that out of this tutorial for
+simplicity.
 
 == Creating a form using plain Java
 
@@ -694,5 +850,5 @@ start on your Vaadin developer career.
 
  * https://vaadin.com/docs/-/part/framework/introduction/intro-overview.html[Vaadin online documentation]
  * http://spring.io/guides/gs/crud-with-vaadin/[Creating CRUD UI with Vaadin] - the tutorial for your first Vaadin application using Spring based backend.
- * [Jave EE example app] - a Vaadin app example for creating invoices that uses Java EE backend, Apache DeltaSpike Data for simple JPA layer, OAuth2 based login, PDF generation etc.
+ * https://github.com/mstahv/jpa-invoicer[Jave EE example app] - a Vaadin app example for creating invoices that uses Java EE backend, Apache DeltaSpike Data for simple JPA layer, OAuth2 based login, PDF generation etc.
  * http://vaadin.com/directory[Directory] - a vast source of awesome Vaadin add-ons
