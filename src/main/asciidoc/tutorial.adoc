@@ -416,8 +416,7 @@ In the dialog, just search for Vaadin and click _install_ to mark it for
 installation. Clicking _Install Now_ will take you to choose the modules you want
 and accept the license agreement.
 
-image::pluginEclipseMarketPlace2.jpg[Selecting Vaadin Plugin for Eclipse for 
-installation in Eclipse Marketplace]
+image::pluginEclipseMarketPlace2.jpg[Selecting Vaadin Plugin for Eclipse for installation in Eclipse Marketplace]
 
 TIP: When you actually use the Vaadin Designer for the first time in the next step,
 it will ask for a license key. If you are not willing to buy license now, just
