@@ -444,7 +444,7 @@ video::doKj0JwXWrI[youtube, width="640", height="400"]
 TIP: At any point of the process you can also switch to the markup mode where
 you can edit the raw content of the .html file. If you wish to take a shortcut
 or think you did something wrong when using the designer, you can just 
-copy-paste the content of the final state to your own .html file.
+copy-paste the content of https://github.com/mstahv/t/blob/master/src/main/resources/my/vaadin/app/CustomerFormDesign.html[the final state] to your own .html file.
 
 At this point we only have a static mockup of the actual UI. To implement a
 functional form component, we need some Java code as well. Vaadin Designer
