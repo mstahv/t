@@ -1,10 +1,9 @@
-
-= Vaadin tutorial
 :experimental:
 :sectnums:
 :imagesdir: images
 :toc:
 
+= Vaadin tutorial
 
 image::finalUI.jpg[caption=" ", title="A screenshot of the application to be built.", alt="Screenshot", width="600"]
 
@@ -75,6 +74,13 @@ war file to the "target" directory that you can deploy to your application
 server. As Maven might again need to download some new modules and the project
 has a setup for add-on usage and contains a project specific theme, the first
 build will take a while.
+
+TIP: For the Maven compilation to work you need a JDK to be configured in your 
+Eclipse in menu:Window[Preferences > Java > Installed JREs > Add...]. This step
+is necessary at least on Windows if you are using a fresh installation of 
+Eclipse or for some other reason haven't configured a JDK to your Eclipse. The
+JDK by default installs on Windows to _\Program Files\Java_. You
+can make JDK the default JRE for your Eclipse.
 
 While the build is running, let's have a look at what the archetype created for
 you. You can browse your project resources from the tree structure in the
@@ -153,7 +159,7 @@ image::debugInBreakPointVariable.jpg[Execution in a break point in the button cl
 Clicking the red square in the Console view will terminate the server process.
 You can restart it easily form the run/debug history. You can find that from the
 small down arrow next to the green play button or bug button (for the debug
-mode) in the toolbar. Alternatively you can use the main menu: menu:Run[Run
+mode) in the toolbar. Alternatively you can use the main menu menu:Run[Run
 history/Debug history > Run in Jetty].
 
 To get back to the _Java EE Perspective_, an Eclipse mode designed for editing
@@ -422,8 +428,9 @@ If you get a security warning about the software containing unsigned content,
 just accept the warning by clicking OK. After installation Eclipse asks if you
 want to restart. Click Yes.
 
-TIP: When you actually use the Vaadin Designer for the first time in the next step,
-it will ask for a license key. If you are not willing to buy license now, just
+TIP: When you actually use the Vaadin Designer for the first time in the next 
+step, it will ask for a license key. Get that now from 
+https://vaadin.com/designer. If you are not willing to buy license now, just
 acquire a trial license.
 
 === Creating the form design
@@ -594,7 +601,10 @@ simplicity.
 == Creating a form using plain Java
 
 This is an alternative step to the <<Creating a form using Vaadin Designer>>,
-where you'll build the form UI programmatically in plain Java.
+where you'll build the form UI programmatically in plain Java. If you already 
+completed the step using Vaadin Designer, you can either proceed to 
+<<Connecting the form to the application>> or delete your the design files and 
+re-implement the form with this alternative approach.
 
 Start by creating a new Java class with the name CustomerForm. In Eclipse right
 click on the "my.vaadin.app" package and choose menu:New[Class]. Type in the
