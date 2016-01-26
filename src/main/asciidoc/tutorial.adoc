@@ -418,6 +418,10 @@ and accept the license agreement.
 
 image::pluginEclipseMarketPlace2.jpg[Selecting Vaadin Plugin for Eclipse for installation in Eclipse Marketplace]
 
+If you get a security warning about the software containing unsigned content,
+just accept the warning by clicking OK. After installation Eclipse asks if you
+want to restart. Click Yes.
+
 TIP: When you actually use the Vaadin Designer for the first time in the next step,
 it will ask for a license key. If you are not willing to buy license now, just
 acquire a trial license.
