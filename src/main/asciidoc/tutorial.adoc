@@ -256,10 +256,10 @@ Macs). The extracted method call looks like this:
 
 [source,java]
 ----
-	public void updateList() {
-		List<Customer> customers = service.findAll(filterText.getValue());
-		grid.setContainerDataSource(new BeanItemContainer<>(Customer.class, customers));
-	}
+    public void updateList() {
+        List<Customer> customers = service.findAll();
+        grid.setContainerDataSource(new BeanItemContainer<>(Customer.class, customers));
+    }
 ----
 
 If you try the application now, you'll see that quite many properties of the
