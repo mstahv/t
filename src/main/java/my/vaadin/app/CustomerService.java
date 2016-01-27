@@ -20,6 +20,7 @@ import java.util.logging.Logger;
 public class CustomerService {
 
 	private static CustomerService instance;
+	private static final Logger LOGGER = Logger.getLogger(CustomerService.class.getName());
 
 	private final HashMap<Long, Customer> contacts = new HashMap<>();
 	private long nextId = 0;
@@ -139,6 +140,11 @@ public class CustomerService {
 	 * @param entry
 	 */
 	public synchronized void save(Customer entry) {
+		if (entry == null) {
+			LOGGER.log(Level.SEVERE,
+					"Customer is null. Are you sure you have connected your form to the application as described in tutorial chapter 7?");
+			return;
+		}
 		if (entry.getId() == null) {
 			entry.setId(nextId++);
 		}

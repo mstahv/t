@@ -12,15 +12,15 @@ public class Customer implements Serializable, Cloneable {
 
 	private Long id;
 
-	private String firstName;
+	private String firstName = "";
 
-	private String lastName;
+	private String lastName = "";
 
 	private Date birthDate;
 
 	private CustomerStatus status;
 
-	private String email;
+	private String email = "";
 
 	public Long getId() {
 		return id;

@@ -25,7 +25,7 @@ public class CustomerFormDesign extends FormLayout {
 	protected TextField lastName;
 	protected TextField email;
 	protected NativeSelect status;
-	protected PopupDateField birthdate;
+	protected PopupDateField birthDate;
 	protected Button save;
 	protected Button delete;
 

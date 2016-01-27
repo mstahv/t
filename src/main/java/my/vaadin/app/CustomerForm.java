@@ -7,13 +7,12 @@ public class CustomerForm extends CustomerFormDesign {
 	
 	CustomerService service = CustomerService.getInstance();
 	private Customer customer;
-	private MyUI parent;
+	private MyUI myUI;
 	
 	public CustomerForm(MyUI myUI) {
-		this.parent = myUI;
+		this.myUI = myUI;
 		save.addClickListener(e->this.save());
 		delete.addClickListener(e->this.delete());
-		status.removeAllItems(); // Remove demo data assigned by Designer
 		status.addItems(CustomerStatus.values());
 		save.setClickShortcut(KeyCode.ENTER);
 	}
@@ -29,13 +28,13 @@ public class CustomerForm extends CustomerFormDesign {
 	
 	private void delete() {
 		service.delete(customer);
-		parent.updateList();
+		myUI.updateList();
 		setVisible(false);
 	}
 
 	protected void save() {
 		service.save(customer);
-		parent.updateList();
+		myUI.updateList();
 		setVisible(false);
 	}
 
