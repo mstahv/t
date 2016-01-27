@@ -439,7 +439,7 @@ The following screencast will show you how to produce the
 _CustomerFormDesign.html_, a design file we need in this tutorial. Use pause and
 slow motion to better follow what is being done on the video. 
 
-video::doKj0JwXWrI[youtube, width="640", height="400"]
+video::B5dN69NSS78[youtube, width="640", height="400"]
 
 TIP: At any point of the process you can also switch to the markup mode where
 you can edit the raw content of the .html file. If you wish to take a shortcut
