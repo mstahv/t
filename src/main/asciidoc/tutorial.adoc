@@ -5,8 +5,6 @@
 
 = Vaadin tutorial
 
-image::finalUI.jpg[caption=" ", title="A screenshot of the application to be built.", alt="Screenshot", width="600"]
-
 This tutorial gives you an overview of how you can use
 https://vaadin.com/framework[Vaadin Framework] to build single-page web UI's for your Java
 application. All you need to start with it is JDK 8 and an https://en.wikipedia.org/wiki/Integrated_development_environment[IDE] like Eclipse.
@@ -400,7 +398,13 @@ application.
 
 Now it is a good place to save your changes and try them in your browser.
 
-== Creating a form using Vaadin Designer
+== Creating a form to edit Customer objects
+
+To edit and add Customer objects we need to create a form, that edits the 
+values in our domain objects. This tutorial has two alternative methods to do
+that. Pick either of them.
+
+=== Creating a form using Vaadin Designer
 
 The form to edit Customer objects can be built using several methods of which
 the visual composition by drag 'n' drop is the most intuitive. Vaadin
@@ -412,7 +416,7 @@ TIP: If you are using another IDE or just prefer to compose your user interface
 with code, take the alternative step, <<Creating a form using plain Java>>,
 where the CustomerForm is composed using plain Java code.
 
-=== Installing Vaadin Designer
+==== Installing Vaadin Designer
 
 Vaadin Designer comes as an integrated part of Vaadin Plugin for Eclipse. It can
 be installed easily via Eclipse Marketplace. Choose menu:Help[Eclipse Marketplace]
@@ -432,7 +436,7 @@ step, it will ask for a license key. Get a key from
 https://vaadin.com/designer. If you are not willing to buy a license now, just
 acquire a trial license.
 
-=== Creating the form design
+==== Creating the form design
 
 The following screencast will show you how to produce the 
 _CustomerFormDesign.html_, a design file we need in this tutorial. Use pause and
@@ -596,7 +600,7 @@ system like https://vaadin.com/wiki/-/wiki/main/Events+and+contexts[CDI events]
 to completely decouple the components. We'll leave that out of this tutorial for
 simplicity.
 
-== Creating a form using plain Java
+=== Creating a form using plain Java
 
 This is an alternative step to the <<Creating a form using Vaadin Designer>>,
 where you'll build the form UI programmatically in plain Java. If you already 
