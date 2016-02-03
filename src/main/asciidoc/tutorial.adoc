@@ -72,9 +72,9 @@ server. As Maven might again need to download some new modules and the project
 has a setup for add-on usage and contains a project specific theme, the first
 build will take a while.
 
-TIP: For the Maven compilation to work you need a JDK to be configured in your 
+TIP: For the Maven compilation to work you need a JDK to be configured in your
 Eclipse in menu:Window[Preferences > Java > Installed JREs > Add...]. This step
-is necessary at least on Windows, if you are using a fresh installation of 
+is necessary at least on Windows, if you are using a fresh installation of
 Eclipse or for some other reason haven't configured a JDK to your Eclipse. The
 JDK by default installs to _\Program Files\Java_ on Windows. You
 can make JDK the default JRE for your Eclipse.
@@ -119,7 +119,7 @@ in the image below.
 
 image::debugAsMavenBuildAddSources.jpg[Adding sources for debugging]
 
-Now click _Debug_ to continue. This will download a small Java web server 
+Now click _Debug_ to continue. This will download a small Java web server
 (if not cached to your local Maven repository), and use it to host
 your application. Once the server has started, point your browser to the URL
 http://localhost:8080/[http://localhost:8080/] to see the running application.
@@ -400,7 +400,7 @@ Now it is a good place to save your changes and try them in your browser.
 
 == Creating a form to edit Customer objects
 
-To edit and add Customer objects we need to create a form, that edits the 
+To edit and add Customer objects we need to create a form, that edits the
 values in our domain objects. This tutorial has two alternative methods to do
 that. Pick either of them.
 
@@ -421,7 +421,7 @@ where the CustomerForm is composed using plain Java code.
 Vaadin Designer comes as an integrated part of Vaadin Plugin for Eclipse. It can
 be installed easily via Eclipse Marketplace. Choose menu:Help[Eclipse Marketplace]
 
-In the dialog, just search for Vaadin and click _install_ to mark it for 
+In the dialog, just search for Vaadin and click _install_ to mark it for
 installation. Clicking _Install Now_ will take you to choose the modules you want
 and accept the license agreement.
 
@@ -431,14 +431,14 @@ If you get a security warning about the software containing unsigned content,
 just accept the warning by clicking OK. After installation, Eclipse asks if you
 want to restart. Click Yes.
 
-TIP: When you use Vaadin Designer for the first time in the next 
-step, it will ask for a license key. Get a key from 
+TIP: When you use Vaadin Designer for the first time in the next
+step, it will ask for a license key. Get a key from
 https://vaadin.com/designer. If you are not willing to buy a license now, just
 acquire a trial license.
 
 ==== Creating the form design
 
-The following screencast will show you how to produce the 
+The following screencast will show you how to produce the
 _CustomerFormDesign.html_, a design file we need in this tutorial. Use pause and
 slow motion to follow better what is being done in the video. Feel free to get creative!
 
@@ -446,20 +446,20 @@ video::B5dN69NSS78[youtube, width="640", height="400"]
 
 TIP: At any point of the process, you can also switch to the markup mode where
 you can edit the raw content of the .html file. If you wish to take a shortcut
-or think you did something wrong when using the designer, you can just 
+or think you did something wrong when using the designer, you can just
 copy-paste the content of https://github.com/mstahv/t/blob/master/src/main/resources/my/vaadin/app/CustomerFormDesign.html[the final state] to your own .html file.
 
 At this point we only have a static mockup of the actual UI. To implement a
 functional form component, we need some Java code as well. Vaadin Designer
 automatically creates a similarly named Java class, but a good habit is to never touch the auto-generated file, in this case the
-CustomerFormDesign.java file. If you'd introduce a new field to your form, 
+CustomerFormDesign.java file. If you'd introduce a new field to your form,
 your changes to CustomerFormDesign would be overridden by the tooling. Instead,
 we'll create a class called CustomerForm which inherits from the auto-generated
 CustomerFormDesign class.
 
 Start by creating a new Java class with the name CustomerForm. In Eclipse, right
 click on the "my.vaadin.app" package and choose menu:New[Class]. Type in the
-name _CustomerForm_, define the superclass as 
+name _CustomerForm_, define the superclass as
 _my.vaadin.app.CustomerFormDesign_ and click _finish_.
 
 From the superclass, we inherit all the UI elements that we named when using
@@ -481,7 +481,7 @@ public CustomerForm(MyUI myUI) {
 }
 ----
 
-Although the form is not yet fully functional, you might want to see what it 
+Although the form is not yet fully functional, you might want to see what it
 looks like at this point. Add it as a field to the _MyUI_ class:
 
 [source,java]
@@ -519,7 +519,7 @@ following line to the constructor:
     status.addItems(CustomerStatus.values());
 ----
 
-Let's also improve the UX a bit. When building the design, we already 
+Let's also improve the UX a bit. When building the design, we already
 emphasized the save button with a ValoTheme.BUTTON_PRIMARY style name. Thus, it
 would be natural if the enter-key would do the same action as clicking the
 save button. Assign a keyboard shortcut to the save button with this line in the
@@ -603,8 +603,8 @@ simplicity.
 === Creating a form using plain Java
 
 This is an alternative step to the <<Creating a form using Vaadin Designer>>,
-where you'll build the form UI programmatically in plain Java. If you already 
-completed the step using Vaadin Designer, you can proceed to 
+where you'll build the form UI programmatically in plain Java. If you already
+completed the step using Vaadin Designer, you can proceed to
 <<Connecting the form to the application>>.
 
 Start by creating a new Java class with the name CustomerForm. In Eclipse right
