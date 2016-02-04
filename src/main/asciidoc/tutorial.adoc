@@ -186,10 +186,10 @@ menu:Edit[Copy], focus the node representing the _my.vaadin.app_ Java package in
 Eclipse's Java Resources view and choose menu:Edit[Paste]. Eclipse is smart
 enough to automatically create a properly named Java file for the class.
 
- * https://raw.githubusercontent.com/mstahv/t/master/src/main/java/my/vaadin/app/CustomerStatus.java[CustomerStatus] - this is a simple enum class
- * https://raw.githubusercontent.com/mstahv/t/master/src/main/java/my/vaadin/app/Customer.java[Customer] - this is the main domain object, a basic Java bean that we'll be
+ * https://raw.githubusercontent.com/vaadin/tutorial/master/src/main/java/my/vaadin/app/CustomerStatus.java[CustomerStatus] - this is a simple enum class
+ * https://raw.githubusercontent.com/vaadin/tutorial/master/src/main/java/my/vaadin/app/Customer.java[Customer] - this is the main domain object, a basic Java bean that we'll be
    using in our example
- * https://raw.githubusercontent.com/mstahv/t/master/src/main/java/my/vaadin/app/CustomerService.java[CustomerService] - this is a simple facade via which you can request and modify Customer instances. You can think of this as your entry point to your fake database.
+ * https://raw.githubusercontent.com/vaadin/tutorial/master/src/main/java/my/vaadin/app/CustomerService.java[CustomerService] - this is a simple facade via which you can request and modify Customer instances. You can think of this as your entry point to your fake database.
 
 In the next steps, we'll be using these classes and build a UI around them. The
 actual implementation of these classes is not relevant for this tutorial, but
@@ -461,7 +461,7 @@ video::B5dN69NSS78[youtube, width="640", height="400"]
 TIP: At any point of the process, you can also switch to the markup mode where
 you can edit the raw content of the .html file. If you wish to take a shortcut
 or think you did something wrong when using the designer, you can just
-copy-paste the content of https://github.com/mstahv/t/blob/master/src/main/resources/my/vaadin/app/CustomerFormDesign.html[the final state] to your own .html file.
+copy-paste the content of https://github.com/vaadin/tutorial/blob/master/src/main/resources/my/vaadin/app/CustomerFormDesign.html[the final state] to your own .html file.
 
 At this point we only have a static mockup of the actual UI. To implement a
 functional form component, we need some Java code as well. Vaadin Designer
@@ -860,7 +860,7 @@ layout.addComponents(toolbar, main);
 
 All planned features are now done. You can save the changes and play around with
 the application. If something went wrong, you can also download an example of
-https://github.com/mstahv/t[the final application] and see what went wrong.
+https://github.com/vaadin/tutorial[the final application] and see what went wrong.
 
 == It works! What next?
 
